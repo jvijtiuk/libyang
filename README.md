@@ -253,4 +253,6 @@ Currently supported bindings are:
  * cmake option: `JAVASCRIPT_BINDING`
  * [README](./swig/javascript/README.md)
 
+# Fuzzing
+An asciinema example describing the process of fuzzing libyang2 with the yangfuzz fuzz harness is available at https://asciinema.org/a/260417. To fuzz with ASAN, first rebuild libyang. The CMakeLists file has to be modified with additional -m32 and -fsanitize=address flags. -m32 is used in order to build a 32 bit binary, as 64 bit mode is not supported well with AFL. To use the 32 bit binary however, all the dependencies will have to be installed as 32 bit. AFL also has to be recompiled with the AFL_USE_ASAN=1 variable set. To use MSAN, set AFL_USE_MSAN=1. When invoking afl-fuzz a memory limit has to be set with the -m flag. More information is available in the official AFL documentation https://github.com/mirrorer/afl/blob/master/docs/notes_for_asan.txt.
 
