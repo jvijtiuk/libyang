@@ -101,6 +101,8 @@ if(ENABLE_COVERAGE)
     endif()
 endif()
 
+
+
 set(CMAKE_C_FLAGS         "${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_COVERAGE} -Wall -Wextra -Wno-missing-field-initializers -std=c99")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_C_FLAGS_PACKAGE "-g -O2 -DNDEBUG")
@@ -418,6 +420,13 @@ if(ENABLE_BUILD_TESTS)
 endif(ENABLE_BUILD_TESTS)
 
 if(ENABLE_FUZZ_TARGETS)
+	set(FUZZER "AFL" CACHE STRING "fuzzer type")
+	if(FUZZER STREQUAL "libfuzzer")
+		if (NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
+			message(FATAL_ERROR "libfuzzer works only with clang")
+		endif()
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,undefined")
+	endif()
 	add_subdirectory(tests/fuzz)
 endif(ENABLE_FUZZ_TARGETS)
 
