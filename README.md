@@ -262,4 +262,4 @@ Multiple YANG fuzzing targets and fuzzing instructions are available in the
 `tests/fuzz` directory.
 
 Currently there are multiple targets, all of which can be fuzzed with LLVM's 
-libfuzzer and AFL, and new targets can easily be added.
+LibFuzzer and AFL, and new targets can easily be added.
