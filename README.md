@@ -258,6 +258,8 @@ Currently supported bindings are:
  
 ## Fuzzing
 
-A YANG fuzzing target and fuzzing instructions are available in the `tests/fuzz` directory.
+Multiple YANG fuzzing targets and fuzzing instructions are available in the
+`tests/fuzz` directory.
 
-An asciinema example describing the process of fuzzing libyang2 with the yangfuzz fuzz harness is available at https://asciinema.org/a/260417.
+Currently there are multiple targets, all of which can be fuzzed with LLVM's 
+libfuzzer and AFL, and new targets can easily be added.
