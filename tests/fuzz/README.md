@@ -3,6 +3,11 @@ This directory contains a collection of fuzz harnesses, which are designed to
 be used with [AFL](http://lcamtuf.coredump.cx/afl/) and [LibFuzzer](https://llvm.org/docs/LibFuzzer.html)
 fuzzers. The harnesses should also be easily reusable with other similar fuzzers.
 
+Two asciinema examples are available, one for LibFuzzer:
+https://asciinema.org/a/311035
+and one for AFL:
+https://asciinema.org/a/311060
+
 To build the fuzz targets, the ENABLE_FUZZ_TARGETS option has to be enabled.
 The FUZZER option specifies which fuzzer to use, currently only AFL and LibFuzzer
 are supported, with AFL being the default. LibFuzzer is based on the same 
