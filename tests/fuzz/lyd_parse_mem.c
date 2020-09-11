@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "libyang.h"
 
 int LLVMFuzzerTestOneInput(uint8_t const *buf, size_t len)
 {
 	struct ly_ctx *ctx = NULL;
-	static bool log = false;
+	static bool log = true;
 	const char *schema_a = "module defs {namespace urn:tests:defs;prefix d;yang-version 1.1;"
 		            "identity crypto-alg; identity interface-type; identity ethernet {base interface-type;} identity fast-ethernet {base ethernet;}}";
     const char *schema_b = "module types {namespace urn:tests:types;prefix t;yang-version 1.1; import defs {prefix defs;}"
@@ -57,14 +58,15 @@ int LLVMFuzzerTestOneInput(uint8_t const *buf, size_t len)
 		log = true;
 	}
 
-	err = ly_ctx_new(NULL, 0, &ctx);
+	err = ly_ctx_new(NULL, 0, &ctx); 
 	if (err != LY_SUCCESS) {
 		fprintf(stderr, "Failed to create context\n");
 		exit(EXIT_FAILURE);
 	}
 
-	lys_parse_mem(ctx, schema_a, LYS_IN_YANG);
-	lys_parse_mem(ctx, schema_b, LYS_IN_YANG);
+	lys_parse_mem(ctx, schema_a, LYS_IN_YANG, NULL);
+	lys_parse_mem(ctx, schema_b, LYS_IN_YANG, NULL);
+
 
 	data = malloc(len + 1);
 	if (data == NULL) {
@@ -73,8 +75,9 @@ int LLVMFuzzerTestOneInput(uint8_t const *buf, size_t len)
 	memcpy(data, buf, len);
 	data[len] = 0;
 
-	lyd_parse_mem(ctx, data, LYD_XML, LYD_VALOPT_DATA_ONLY);
-	ly_ctx_destroy(ctx, NULL);
+  struct lyd_node *tree = NULL;
+	lyd_parse_data_mem(ctx, data, LYD_XML, 0, LYD_VALIDATE_PRESENT, &tree);
+  ly_ctx_destroy(ctx, NULL);
 
 	free(data);
 
