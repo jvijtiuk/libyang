@@ -74,7 +74,7 @@ int LLVMFuzzerTestOneInput(uint8_t const *buf, size_t len)
 	}
 	memcpy(data, buf, len);
 	data[len] = 0;
-	printf("test12\n");
+	printf("test13\n");
 
   struct lyd_node *tree = NULL;
 	lyd_parse_data_mem(ctx, data, LYD_XML, 0, LYD_VALIDATE_PRESENT, &tree);
