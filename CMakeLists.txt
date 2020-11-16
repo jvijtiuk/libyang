@@ -402,7 +402,6 @@ if(ENABLE_FUZZ_TARGETS)
         if (NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
             message(FATAL_ERROR "LibFuzzer works only with clang")
         endif()
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer")
     endif()
 endif()
 
